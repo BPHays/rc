@@ -6,16 +6,16 @@ cd config
 
 for FILE in $(echo .[^.]*); do
     
-    if [ -f ~/testdir/$FILE ]; then
+    if [ -f ~/$FILE ]; then
         echo "Backing up $FILE to ${FILE}.old"
-        mv ~/testdir/$FILE ~/testdir/${FILE}.old
+        mv ~/$FILE ~/${FILE}.old
     fi
 
     if [ -L ~/testdir/$FILE ]; then
         echo "Removing old symlink to $FILE"
-        rm ~/testdir/$FILE
+        rm ~/$FILE
     fi
 
     echo "Creating new symlink to $FILE"
-    ln -s $PWD/$FILE $HOME/testdir/$FILE
+    ln -s $PWD/$FILE $HOME/$FILE
 done
