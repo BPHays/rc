@@ -99,5 +99,8 @@ export PATH=${PATH}:/homes/hays1/bin/node-v4.2.2-linux-x64/bin/
 # My compiled stuff
 export PATH=${PATH}:/homes/hays1/bin
 
+# My pip shit
+export PATH=${PATH}:/homes/hays1/.local/bin
+
 DEFAULT_USER="hays1"
 
