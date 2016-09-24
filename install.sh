@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Install Snippets"
+mkdir $HOME/.vim
+ln -s $PWD/UltiSnips $HOME/.vim/UltiSnips
+
 echo "Install config files"
 
 cd config
