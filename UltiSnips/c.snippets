@@ -36,6 +36,29 @@ int main(int argc, char *argv[])
 }
 endsnippet
 
+###############################################################################
+# DEBUG
+###############################################################################
+
+snippet dbgdef
+DEBUG_PRINT(x) fprintf(stderr, "%s\n", (x));
+endsnippet
+
+snippet dbg
+DEBUG_PRINT($1)
+endsnippet
+
+snippet dbgflag
+DEBUG_PRINT_FLAG(f, x) if (f) DEBUG_PRINT(x)
+endsnippet
+
+#####################################################################
+# CONTROL FLOW
+###############################################################################
+
+###############################################################################
+# FOR
+###############################################################################
 snippet for "for loop (for)"
 for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 	${VISUAL}${0}
@@ -60,8 +83,46 @@ for (${1:node *} ${2:n} = ${3:list->head}; $2 != Null; ${4:$2 = $2->next}) {
 }
 endsnippet
 
-snippet while
+###############################################################################
+# WHILE
+###############################################################################
 
+snippet while
+while($1) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet dowh
+do {
+	${VISUAL}${0}
+} wile ($1)
+endsnippet
+
+###############################################################################
+# CONDITIONAL
+###############################################################################
+
+snippet if 
+if (${1:/* condition */}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet else "else if .. (eli)"
+else {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet eli "else if .. (eli)"
+else if (${1:/* condition */}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet tern
+$1 ? $2 : $3
 endsnippet
 
 snippet once "Include header once only guard"
@@ -77,17 +138,11 @@ else:
 
 ${VISUAL}${0}
 
-#endif /* end of include guard: $1 */
+#endif /* $1 */
 endsnippet
 
 snippet fprintf "fprintf ..."
 fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
-endsnippet
-
-snippet eli "else if .. (eli)"
-else if (${1:/* condition */}) {
-	${VISUAL}${0}
-}
 endsnippet
 
 snippet printf "printf .. (printf)"
@@ -100,13 +155,13 @@ struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
 };
 endsnippet
 
-snippet fun "function" b
+snippet fn "function" b
 ${1:void} ${2:function_name}(${3})
 {
 	${VISUAL}${0}
 }
 endsnippet
 
-snippet fund "function declaration" b
+snippet dec "function declaration" b
 ${1:void} ${2:function_name}(${3});
 endsnippet
