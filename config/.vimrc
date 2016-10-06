@@ -149,17 +149,17 @@ set encoding=utf-8
 nmap <space> zz
 
 " Navigate buffers without needing W
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " Make Q and W work like their lowercase versions
 cmap Q q
 cmap W w
 
 " clear highlighting until next search
-nnoremap <C-L> :nohl<CR><C-L>
+"nnoremap <C-L> :nohl<CR><C-L>
 
 " #############################################################################
 " # 3: KEYBOUND MECHANICS                                                     #
