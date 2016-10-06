@@ -2,6 +2,9 @@
 #                            TextMate Snippets                            #
 ###########################################################################
 
+###############################################################################
+# PREPROCESSOR DIRECTIVES
+###############################################################################
 
 snippet def "#define ..." w
 #define ${1}
@@ -28,28 +31,39 @@ ${1:#pragma mark -
 $0
 endsnippet
 
-snippet main "main() (main)"
-int main(int argc, char *argv[])
-{
-	${VISUAL}${0}
-	return 0;
-}
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	import random, string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+	rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
+	snip.rv = ('%s_%s' % (name,rand)).upper()
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}${0}
+
+#endif /* $1 */
 endsnippet
 
 ###############################################################################
 # DEBUG
 ###############################################################################
 
+# macros to help with debugging
 snippet dbgdef
-DEBUG_PRINT(x) fprintf(stderr, "%s\n", (x));
+#define DEBUG_PRINT(x) fprintf(stderr, "%s\n", (x));
+#define DEBUG_PRINT_FLAG(f, x) if (f) DEBUG_PRINT(x)
+#define FREE(x) free((x)); (x) = NULL;
 endsnippet
 
 snippet dbg
 DEBUG_PRINT($1)
 endsnippet
 
-snippet dbgflag
-DEBUG_PRINT_FLAG(f, x) if (f) DEBUG_PRINT(x)
+snippet dbgf
+DEBUG_PRINT_FLAG($1, $2)
 endsnippet
 
 #####################################################################
@@ -59,7 +73,7 @@ endsnippet
 ###############################################################################
 # FOR
 ###############################################################################
-snippet for "for loop (for)"
+snippet for "generic for loop (for)"
 for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 	${VISUAL}${0}
 }
@@ -71,13 +85,13 @@ for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 }
 endsnippet
 
-snippet forimm
+snippet forimm "for int loop counting down"
 for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:--$2}) {
 	${VISUAL}${0}
 }
 endsnippet
 
-snippet forl
+snippet forl "for loop on a list"
 for (${1:node *} ${2:n} = ${3:list->head}; $2 != Null; ${4:$2 = $2->next}) {
 	${VISUAL}${0}
 }
@@ -109,14 +123,14 @@ if (${1:/* condition */}) {
 }
 endsnippet
 
-snippet else "else if .. (eli)"
-else {
+snippet eli "else if .. (eli)"
+else if (${1:/* condition */}) {
 	${VISUAL}${0}
 }
 endsnippet
 
-snippet eli "else if .. (eli)"
-else if (${1:/* condition */}) {
+snippet else "else"
+else {
 	${VISUAL}${0}
 }
 endsnippet
@@ -125,21 +139,9 @@ snippet tern
 $1 ? $2 : $3
 endsnippet
 
-snippet once "Include header once only guard"
-#ifndef ${1:`!p
-if not snip.c:
-	import random, string
-	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
-	rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
-	snip.rv = ('%s_%s' % (name,rand)).upper()
-else:
-	snip.rv = snip.c`}
-#define $1
-
-${VISUAL}${0}
-
-#endif /* $1 */
-endsnippet
+###############################################################################
+# COMMON FUNCTIONS
+###############################################################################
 
 snippet fprintf "fprintf ..."
 fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
@@ -149,10 +151,12 @@ snippet printf "printf .. (printf)"
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
 
-snippet st "struct"
-struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
-	${0:/* data */}
-};
+snippet main "main() (main)"
+int main(int argc, char *argv[])
+{
+	${VISUAL}${0}
+	return 0;
+}
 endsnippet
 
 snippet fn "function" b
@@ -164,4 +168,20 @@ endsnippet
 
 snippet dec "function declaration" b
 ${1:void} ${2:function_name}(${3});
+endsnippet
+
+###############################################################################
+# MISC
+###############################################################################
+
+snippet st "struct"
+struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+	${0:/* data */}
+};
+endsnippet
+
+snippet tst "typedef a struct" b
+typedef struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+	${0:/* data */}
+} $1;
 endsnippet
