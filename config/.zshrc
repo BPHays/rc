@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/homes/hays1/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -53,7 +53,7 @@ plugins=(dircycle git)
 
 # User configuration
 
-export PATH="/homes/hays1/bin/.amd64-linux:/homes/hays1/bin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.8.3:/usr/games/bin:.:/p/andriod-sdk/tools:/p/andriod-sdk/platform-tools:/p/android-sdk/tools:/p/android-sdk/platform-tools"
+#export PATH="/homes/hays1/bin/.amd64-linux:/homes/hays1/bin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.8.3:/usr/games/bin:.:/p/andriod-sdk/tools:/p/andriod-sdk/platform-tools:/p/android-sdk/tools:/p/android-sdk/platform-tools"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,21 +86,24 @@ export LANG=en_US.UTF-8
 # import alias file
 source ~/.aliases
 
+# import path stuff
+source ~/.paths
+
 # qt stuff
-export PATH=${PATH}:/opt/qt-5.5.1/bin
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/qt-5.5.1/lib
+#export PATH=${PATH}:/opt/qt-5.5.1/bin
+#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/qt-5.5.1/lib
 
 # OS stuff
-export PATH=${PATH}:/p/xinu/bin:/homes/cs354/bin
+#export PATH=${PATH}:/p/xinu/bin:/homes/cs354/bin
 
 # node stuff
-export PATH=${PATH}:/homes/hays1/bin/node-v4.2.2-linux-x64/bin/
+#export PATH=${PATH}:/homes/hays1/bin/node-v4.2.2-linux-x64/bin/
 
 # My compiled stuff
-export PATH=${PATH}:/homes/hays1/bin
+#export PATH=${PATH}:/homes/hays1/bin
 
 # My pip shit
-export PATH=${PATH}:/homes/hays1/.local/bin
+#export PATH=${PATH}:/homes/hays1/.local/bin
 
-DEFAULT_USER="hays1"
+DEFAULT_USER="$USER"
 
