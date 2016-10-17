@@ -60,6 +60,10 @@ Bundle 'bling/vim-airline'
 Bundle 'majutsushi/tagbar'
     nmap <F3> :TagbarToggle<CR>
 
+    " Allow toggling to the tagbar with a keyboard shortcut
+    set switchbuf+=useopen
+    nmap <C-e> :sb Tagbar<CR>
+
 "popout menu with file explorer Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdtree'
     map <F2> :NERDTreeToggle<CR>
@@ -140,7 +144,7 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set encoding=utf-8
 
 " #############################################################################
-" # 3: KEY BINDINGS                                                           #
+" # 3: KEYBINDINGS                                                            #
 " #############################################################################
 " # Convenient keybindings                                                    #
 " #############################################################################
