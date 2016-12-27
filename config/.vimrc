@@ -2,17 +2,17 @@
 " # CONTENTS                                                                  #
 " #############################################################################
 " #                                                                           #
-" # PLUGINS                                                                   #
-" # 1: BASIC EDITOR SETTINGS                                                  #
-" # 2: LOOK AND FEEL                                                          #
-" # 3: KEYBINDINGS                                                            #
-" # 4: KEYBOUND MECHANICS                                                     #
-" # 5: LANGUAGE SETTINGS                                                      #
-" # MISC                                                                      #
+" # SECPLUG PLUGINS                                                           #
+" # SEC0001 BASIC EDITOR SETTINGS                                             #
+" # SEC0002 LOOK AND FEEL                                                     #
+" # SEC0003 KEYBINDINGS                                                       #
+" # SEC0004 KEYBOUND MECHANICS                                                #
+" # SEC0005 LANGUAGE SETTINGS                                                 #
+" # SECMISC MISC                                                              #
 " #############################################################################
 
 " #############################################################################
-" # PLUGINS                                                                   #
+" # PLUGINS                                                           SECPLUG #
 " #############################################################################
 
 " vulndle header boulderplate start
@@ -85,7 +85,7 @@ filetype plugin indent on
 " vulndle footer boulderplate stop
 
 " #############################################################################
-" # 1: BASIC EDITOR SETTINGS                                                  #
+" # 1: BASIC EDITOR SETTINGS                                          SEC0001 #
 " #############################################################################
 " # Turn on basic editor functionality in vim                                 #
 " #############################################################################
@@ -121,7 +121,7 @@ set nofoldenable
 set foldlevel=1
 
 " #############################################################################
-" # 2: LOOK AND FEEL                                                          #
+" # 2: LOOK AND FEEL                                                  SEC0002 #
 " #############################################################################
 " # Basic font and color settings                                             #
 " #############################################################################
@@ -144,7 +144,7 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set encoding=utf-8
 
 " #############################################################################
-" # 3: KEYBINDINGS                                                            #
+" # 3: KEYBINDINGS                                                    SEC0003 #
 " #############################################################################
 " # Convenient keybindings                                                    #
 " #############################################################################
@@ -163,10 +163,10 @@ cmap Q q
 cmap W w
 
 " clear highlighting until next search
-"nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <C-L> :nohl<CR><C-L>
 
 " #############################################################################
-" # 3: KEYBOUND MECHANICS                                                     #
+" # 4: KEYBOUND MECHANICS                                           # SEC0004 #
 " #############################################################################
 " # Keybindings which change default behavior                                 #
 " #############################################################################
@@ -186,7 +186,7 @@ nmap n nzz
 nmap N Nzz
 
 " #############################################################################
-" # 5: LANGUAGE SETTINGS                                                      #
+" # 5: LANGUAGE SETTINGS                                              SEC0005 #
 " #############################################################################
 " # Set any specific language settings here                                   #
 " #############################################################################
@@ -194,8 +194,11 @@ nmap N Nzz
 " python tabs
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 
+" Set correct syntax highlighting for different filetypes
+au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc def files
+
 " #############################################################################
-" # MISC                                                                      #
+" # MISC                                                              SECMISC #
 " #############################################################################
 " # Use random vim features                                                   #
 " #############################################################################
