@@ -165,7 +165,8 @@ cmap W w
 " clear highlighting until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-:map <f9> :make<CR> | :copen
+" build the project and show errors if any were found
+map <f9> :make<bar>cw<CR>
 
 " #############################################################################
 " # 4: KEYBOUND MECHANICS                                           # SEC0004 #
@@ -193,9 +194,15 @@ nmap N Nzz
 " # Set any specific language settings here                                   #
 " #############################################################################
 
+" #############################################################################
+" # PYTHON                                                                    #
+" #############################################################################
 " python tabs
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 
+" #############################################################################
+" # C                                                                         #
+" #############################################################################
 " Set correct syntax highlighting for different filetypes
 au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc def files
 
