@@ -165,6 +165,8 @@ cmap W w
 " clear highlighting until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
+:map <f9> :make<CR> | :copen
+
 " #############################################################################
 " # 4: KEYBOUND MECHANICS                                           # SEC0004 #
 " #############################################################################
