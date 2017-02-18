@@ -79,6 +79,9 @@ Bundle 'scrooloose/nerdcommenter'
 " Doxygen comment generation
 Bundle 'vim-scripts/DoxygenToolkit.vim'
 
+" Rust integration
+Plugin 'rust-lang/rust.vim'
+
 " vulndle footer boulderplate start
 call vundle#end()
 filetype plugin indent on
@@ -96,8 +99,8 @@ set number
 set ruler
 
 " set indents and tabs to 4 spaces
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set autoindent
 set expandtab
 set smarttab
@@ -168,6 +171,9 @@ nnoremap <C-L> :nohl<CR><C-L>
 " build the project and show errors if any were found
 map <f9> :make<bar>cw<CR>
 
+" Run the current file
+command R !./%
+
 " #############################################################################
 " # 4: KEYBOUND MECHANICS                                           # SEC0004 #
 " #############################################################################
@@ -205,6 +211,14 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 " #############################################################################
 " Set correct syntax highlighting for different filetypes
 au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc def files
+
+" #############################################################################
+" # IMPCORE                                                                   #
+" #############################################################################
+" Use scheme syntax highlighting
+au BufRead,BufNewFile *.imp set filetype=scheme
+
+au BufRead,BufNewFile *.jj so ~/.vim/syntax/javacc.vim
 
 " #############################################################################
 " # MISC                                                              SECMISC #
