@@ -89,6 +89,12 @@ source ~/.aliases
 # import path stuff
 source ~/.paths
 
+# import user made functions
+source ~"/.functions"
+
+# use z
+. ~/rc/utilities/z.sh
+
 # qt stuff
 #export PATH=${PATH}:/opt/qt-5.5.1/bin
 #export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/qt-5.5.1/lib
@@ -106,4 +112,3 @@ source ~/.paths
 #export PATH=${PATH}:/homes/hays1/.local/bin
 
 DEFAULT_USER="$USER"
-
