@@ -166,7 +166,7 @@ cmap Q q
 cmap W w
 
 " clear highlighting until next search
-nnoremap <C-L> :nohl<CR><C-L>
+"map <esc> :nohl<CR><esc>
 
 " build the project and show errors if any were found
 map <f9> :make<bar>cw<CR>
@@ -218,6 +218,10 @@ au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc d
 " Use scheme syntax highlighting
 au BufRead,BufNewFile *.imp set filetype=scheme
 
+
+" #############################################################################
+" # JAVACC                                                                    #
+" #############################################################################
 au BufRead,BufNewFile *.jj so ~/.vim/syntax/javacc.vim
 
 " #############################################################################
