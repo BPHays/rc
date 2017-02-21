@@ -1,0 +1,12 @@
+[user]
+	name = Brian Hays
+	email = hays1@purdue.edu
+[core]
+  editor = vim
+[push]
+	default = matching
+[alias]
+  c  = commit
+  s  = status
+  d  = diff
+  l  = log
