@@ -13,5 +13,3 @@ export PATH=${PATH}:/p/android-sdk/tools
 export PATH=${PATH}:/p/android-sdk/platform-tools
 
 alias la="ls -a"
-
-zsh
