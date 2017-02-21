@@ -704,4 +704,22 @@ snippet pmdoc "pocoo style module doc string" b
 $0
 endsnippet
 
+snippet cmdargs "Parse command line args" b
+def main(argv):
+	try:
+		opts, args = getopt.getopt(argv, "$1")
+	except getopt.GetoptError:
+		print(usage)
+		sys.exit(2)
+	for opt, arg in opts:
+		if opt == '-h':
+			print(usage)
+			sys.exit()
+		$0
+	${VISUAL}
+
+if __name__ == "__main__":
+	main(sys.argv[1:])
+endsnippet
+
 # vim:ft=snippets:
