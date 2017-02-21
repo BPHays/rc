@@ -40,9 +40,9 @@ Bundle 'Valloric/YouCompleteMe'
 " code snippets
 Bundle 'sirver/ultisnips'
     " better key bindings for UltiSnipsExpandTrigger
-    let g:UltiSnipsExpandTrigger = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    let g:UltiSnipsExpandTrigger = "<s-tab>"
+    let g:UltiSnipsJumpForwardTrigger = "<s-tab>"
+    "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " syntax checking
 Bundle 'scrooloose/syntastic'
@@ -164,9 +164,6 @@ nnoremap <C-l> <C-W>l
 " Make Q and W work like their lowercase versions
 cmap Q q
 cmap W w
-
-" clear highlighting until next search
-"map <esc> :nohl<CR><esc>
 
 " build the project and show errors if any were found
 map <f9> :make<bar>cw<CR>
