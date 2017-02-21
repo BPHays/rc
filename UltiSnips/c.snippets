@@ -1,6 +1,8 @@
 ###########################################################################
 #                            TextMate Snippets                            #
-########################################################################### ###############################################################################
+########################################################################### 
+
+###############################################################################
 # PREPROCESSOR DIRECTIVES
 ###############################################################################
 
@@ -17,9 +19,7 @@ endsnippet
 snippet #if "#if #endif" b
 #if ${1:0}
 ${VISUAL}${0}
-#endif
-endsnippet
-
+#endif endsnippet 
 snippet mark "#pragma mark (mark)"
 #if 0
 ${1:#pragma mark -
@@ -174,10 +174,6 @@ else:
 `});
 endsnippet
 
-#${4: `!p
-#	if t[1] != 'char':
-#		snip.rv = ' * sizeof(%s)' % t[1]
-#`});
 snippet realloc
 realloc($1 ${2: * sizeof($3)});
 endsnippet
@@ -189,10 +185,22 @@ if (${1:size} == ${2:maxSize}) {
 }
 endsnippet
 
-snippet syscheck
+snippet syserr
+if (${1:ret} < 0) {
+	perror("$2");
+	exit(${3:-1});
+}
+endsnippet
+
+snippet sysdbg
 if (${1:ret} < 0) {
 	perror("$2");
 }
+endsnippet
+
+# Because I can never remember the arguments
+snippet memcpy
+memcpy(${1:dest}, ${2:src}, ${3:size});
 endsnippet
 
 ################################################################################
@@ -221,14 +229,32 @@ endsnippet
 # MISC
 ###############################################################################
 
+# Composite Types
 snippet st "struct"
-struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+struct ${1:`!p snip.rv = (snip.basename or "name")`} {
 	${0:/* data */}
 };
 endsnippet
 
 snippet tst "typedef a struct" b
-typedef struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+typedef struct ${1:`!p snip.rv = (snip.basename or "name")`} {
 	${0:/* data */}
 } $1;
+endsnippet
+
+snippet un "union"
+union ${1:`!p snip.rv = (snip.basename or "name")`} {
+	${0:/* data */}
+};
+endsnippet
+
+snippet tun "typedef a union"
+typedef union ${1:`!p snip.rv = (snip.basename or "name")`} {
+	${0:/* data */}
+} $1;
+endsnippet
+
+# Function pointer
+snippet fptr "function pointer"
+${1:void} (*${2:func})(${3:args...});
 endsnippet
