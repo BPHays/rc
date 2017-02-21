@@ -1,4 +1,4 @@
-alias tmux='tmux -2'
+alias tmux='tmux -u -2'
 alias shell="~/cs252/lab3-src/shell"
 alias clera="clear"
 alias sl="ls"
