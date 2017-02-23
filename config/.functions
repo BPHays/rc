@@ -1,0 +1,3 @@
+function pdump() {
+  vim -c 'set filetype=asm' <(objdump -d $1)
+}
