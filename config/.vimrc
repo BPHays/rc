@@ -222,6 +222,12 @@ au BufRead,BufNewFile *.imp set filetype=scheme
 au BufRead,BufNewFile *.jj so ~/.vim/syntax/javacc.vim
 
 " #############################################################################
+" # SCHEME                                                                    #
+" #############################################################################
+" Prevent quote matching in scheme as a single quote marks a literal
+autocmd Filetype scheme let b:delimitMate_quotes="\""
+
+" #############################################################################
 " # MISC                                                              SECMISC #
 " #############################################################################
 " # Use random vim features                                                   #
