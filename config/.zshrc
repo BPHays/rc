@@ -71,14 +71,14 @@ export EDITOR=vim
 
 # import alias file
 source ~/.aliases
-[ -f .local.aliases ] && source .local.aliases
+[ -f ~/.local.aliases ] && source ~/.local.aliases
 
 # import path stuff
 source ~/.paths
 
 # import user made functions
-source ~"/.functions"
-[ -f .local.functions ] && source .local.functions
+source ~/.functions
+[ -f ~/.local.functions ] && source ~/.local.functions
 
 # use z
 . ~/rc/utilities/z.sh
