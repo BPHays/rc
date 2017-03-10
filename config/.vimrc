@@ -82,6 +82,9 @@ Bundle 'vim-scripts/DoxygenToolkit.vim'
 " Rust integration
 Plugin 'rust-lang/rust.vim'
 
+" yankstack
+Plugin 'maxbrunsfeld/vim-yankstack'
+
 " vulndle footer boulderplate start
 call vundle#end()
 filetype plugin indent on
@@ -168,6 +171,10 @@ cmap W w
 " build the project and show errors if any were found
 map <f9> :make<bar>cw<CR>
 
+" lookup assembly instructions
+"autocmd Filetype asm map K :
+autocmd Filetype asm map K :!x86doc <cword><CR>
+
 " Run the current file
 command R !./%
 
@@ -243,6 +250,8 @@ try
     set undofile
 catch
 endtry
+
+set shell=/bin/zsh
 
 " More efficient macros
 set lazyredraw

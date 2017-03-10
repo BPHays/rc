@@ -1,3 +1,29 @@
 function pdump() {
-  vim -c 'set filetype=asm' <(objdump -d $1)
+  vim -c 'set filetype=asm' <(objdump -M intel -d $1)
+}
+
+function ccstr() {
+  cc=$1
+  str=$2
+
+  src=~/tmp/tmpcsrc.c
+  bin=~/tmp/tmpcbin
+
+  echo "#include<stdio.h>" > $src
+  echo $str >> $src
+  clang -std=c99 $src -o $bin && $bin
+}
+
+function clangstr() {
+  str="$1"
+  ccstr "clang" "$str"
+}
+
+function gccstr() {
+  str="$1"
+  ccstr "gcc" "$str"
+}
+
+function x86doc() {
+  chromium "http://x86.renejeschke.de/"$(curl "http://x86.renejeschke.de/" | grep ${1:u} | sed 's/a href="/\n/g' | grep "html" | sed 's/.html/.html\n/g' | grep "html") &
 }
