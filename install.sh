@@ -11,11 +11,11 @@ cd config
 for FILE in $(echo .[^.]*); do
     
     if [ -f ~/$FILE ]; then
-        echo "Backing up $FILE to ${FILE}.old"
-        mv ~/$FILE ~/${FILE}.old
+        echo "Backing up $FILE to ${FILE}.old_"$(date +%Y-%m-%dT%T)
+        mv ~/$FILE ~/${FILE}.old_$(date +%Y-%m-%dT%T)
     fi
 
-    if [ -L ~/testdir/$FILE ]; then
+    if [ -L ~/$FILE ]; then
         echo "Removing old symlink to $FILE"
         rm ~/$FILE
     fi
