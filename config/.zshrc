@@ -63,6 +63,9 @@ export LANG=en_US.UTF-8
 
 export EDITOR=vim
 
+# import local zsh settings
+[ -f ~/.local.zshrc ] && source ~/.local.zshrc
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
