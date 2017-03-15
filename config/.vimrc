@@ -30,6 +30,7 @@ Bundle 'ervandew/supertab'
 
 " auto completion
 Bundle 'Valloric/YouCompleteMe'
+    let g:ycm_global_ycm_extra_conf = '~/rc/utilities/.ycm_extra_conf.py'
     " Prevent compatability issues with syntasic
     let g:ycm_show_diagnostics_ui = 0
     " make YCM compatible with UltiSnips (using supertab)
