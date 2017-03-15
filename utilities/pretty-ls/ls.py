@@ -164,6 +164,7 @@ EXTENSIONS = {
               "rlib":		[u"", SRC],
               "rs":			[u"", SRC],
               "scala":		[u"", SRC],
+              "scm":        [u"λ", SRC],
               "scss":		[u"", SRC],
               "sh":			[u"", SRC],
               "fish":		[u"", SRC],
