@@ -1,5 +1,6 @@
 alias tmux='tmux -u -2'
 alias clera="clear"
+alias ls="~/rc/utilities/pretty-ls/ls.py"
 alias sl="ls"
 alias cgdb="cgdb -d gdb"
 alias imp="rlwrap impcore"
