@@ -25,5 +25,5 @@ function gccstr() {
 }
 
 function x86doc() {
-  chromium "http://x86.renejeschke.de/"$(curl "http://x86.renejeschke.de/" | grep ${1:u} | sed 's/a href="/\n/g' | grep "html" | sed 's/.html/.html\n/g' | grep "html") &
+  elinks -dump "$HOME/misc/x86.renejeschke.de/"$(cat "$HOME/misc/x86.renejeschke.de/index.html" | grep -e "[>/]${1:u}[</]" | sed 's/a href="/\n/g' | grep "html" | sed 's/.html/.html\n/g' | grep "html") | less
 }

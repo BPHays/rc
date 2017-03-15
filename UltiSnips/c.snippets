@@ -187,8 +187,7 @@ endsnippet
 
 snippet syserr
 if (${1:ret} < 0) {
-	perror("$2");
-	exit(${3:-1});
+	perror("$2"); exit(${3:-1});
 }
 endsnippet
 
@@ -257,4 +256,9 @@ endsnippet
 # Function pointer
 snippet fptr "function pointer"
 ${1:void} (*${2:func})(${3:args...});
+endsnippet
+
+# Check if a buffer begins with a string
+snippet starts "check if strig begins with" i
+strncmp($1, $2, strlen($2))
 endsnippet
