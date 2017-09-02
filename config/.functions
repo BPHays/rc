@@ -27,3 +27,12 @@ function gccstr() {
 function x86doc() {
   elinks -dump "$HOME/misc/x86.renejeschke.de/"$(cat "$HOME/misc/x86.renejeschke.de/index.html" | grep -e "[>/]${1:u}[</]" | sed 's/a href="/\n/g' | grep "html" | sed 's/.html/.html\n/g' | grep "html") | less
 }
+
+function cpp-init() {
+  git init
+  # set up an rc to reference the proper headers
+}
+
+function lessc() {
+  pygmentize -f terminal256 -O style=native -g "$1" | less -N
+}

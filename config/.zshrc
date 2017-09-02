@@ -58,10 +58,12 @@ plugins=(dircycle git colored-man-pages zsh-syntax-highlighting) #zsh-autosugges
 
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+unalias ls
 
 export EDITOR=vim
+
+# make all files private by default
+umask 077
 
 # import local zsh settings
 [ -f ~/.local.zshrc ] && source ~/.local.zshrc
@@ -71,10 +73,10 @@ export EDITOR=vim
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+#
 
-# import alias file
-source ~/.aliases
-[ -f ~/.local.aliases ] && source ~/.local.aliases
+# fix vimrc
+#export VIMRUNTIME=~/.linuxbrew/Cellar/vim/8.0.0562/share/vim/vim80
 
 # import path stuff
 source ~/.paths
@@ -86,7 +88,15 @@ source ~/.functions
 # use z
 . ~/rc/utilities/z.sh
 
+# import alias file
+source ~/.aliases
+[ -f ~/.local.aliases ] && source ~/.local.aliases
+
 # use thefuck
 eval "$(thefuck --alias)"
 
 DEFAULT_USER="$USER"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8

@@ -28,6 +28,12 @@ Bundle 'gmarik/vundle'
 " make tabs play nice
 Bundle 'ervandew/supertab'
 
+" syntax checking
+"Bundle 'w0rp/ale'
+
+Bundle 'let-def/vimbufsync'
+Bundle 'trefis/coquille'
+
 " auto completion
 Bundle 'Valloric/YouCompleteMe'
     let g:ycm_global_ycm_extra_conf = '~/rc/utilities/.ycm_extra_conf.py'
@@ -47,6 +53,8 @@ Bundle 'sirver/ultisnips'
 
 " syntax checking
 Bundle 'scrooloose/syntastic'
+"    let g:syntastic_cpp_compiler = 'clang++'
+"    let g:syntastic_cpp_compiler_options = '-std=c++15'
 
 " pair parens, qoutes, etc
 Plugin 'Rainmondi/delimitMate'
@@ -84,7 +92,7 @@ Bundle 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'rust-lang/rust.vim'
 
 " yankstack
-Plugin 'maxbrunsfeld/vim-yankstack'
+"Plugin 'maxbrunsfeld/vim-yankstack'
 
 " vulndle footer boulderplate start
 call vundle#end()
@@ -223,7 +231,6 @@ au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc d
 " Use scheme syntax highlighting
 au BufRead,BufNewFile *.imp set filetype=scheme
 
-
 " #############################################################################
 " # JAVACC                                                                    #
 " #############################################################################
@@ -253,6 +260,16 @@ catch
 endtry
 
 set shell=/bin/zsh
+
+" use the first tags file on a path to the root directory
+set tags=./tags;
+
+" easier access to go to insert mode, just use the nub keys
+imap jf <Esc>
+imap fj <Esc>
+
+" set up better folding
+set foldmethod=syntax
 
 " More efficient macros
 set lazyredraw

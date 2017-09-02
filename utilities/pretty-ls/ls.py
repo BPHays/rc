@@ -33,18 +33,19 @@ COMPILED=GREEN
 TMP     =DKGREY
 
 # Filetype modifiers
-LINK = u" "
+LINK = u" \uf0c1 "
 
 # Specific file name desctriptions.
 # Format: "NAME": [u"ICON","COLOR CODE"]
 FILENAMES = {
               "Makefile":   [u"", TXT],
-              "README":     [u"", TXT],
-              "readme":     [u"", TXT],
+              "README":     [u"\uf128", TXT],
+              "readme":     [u"\uf128", TXT],
               "LICENSE":    [u"", TXT],
               "license":    [u"", TXT],
               ".gitignore": [u"", TXT],
               ".git":       [u"", TXT],
+              "tags":       [u"\uf02c", TXT],
 }
 
 # File extension descriptions.
@@ -88,6 +89,21 @@ EXTENSIONS = {
               # Video
               "mkv":        [u"", VIDEO],
 
+              # General file formats
+                # Office
+              "doc":        [u"\uf1c2", TXT],
+              "docx":       [u"\uf1c2", TXT],
+              "odt":        [u"\uf1c2", TXT],
+              "xls":        [u"\uf1c3", TXT],
+              "xlsx":       [u"\uf1c3", TXT],
+              "ods":        [u"\uf1c3", TXT],
+              "ppt":        [u"\uf1c4", TXT],
+              "pptx":       [u"\uf1c4", TXT],
+              "odp":        [u"\uf1c4", TXT],
+                # Misc
+              "pdf":        [u"\uf1c1", TXT],
+              "ttf":        [u"\uf031", TXT],
+
               # Temporary Files
               "tmp":        [u"", TMP],
               "swp":        [u"", TMP],
@@ -104,19 +120,22 @@ EXTENSIONS = {
               "conf":		[u"", TXT],
 
               # Compiled Files (but not executable)
-              "class":		[u"", COMPILED],
-              "o":		    [u"", COMPILED],
+              "class":		[u"", COMPILED], 
+              "o":		    [u"", COMPILED], 
 
               # Source Code Files
+              "asm":		[u"\uf2db", SRC],
+              "s":		    [u"\uf2db", SRC],
+              "S":		    [u"\uf2db", SRC],
               "bat":		[u"", SRC],
               "c":			[u"", SRC],
-              "h":			[u"", SRC],
+              "h":			[u"\uf1dc", SRC],
               "cc":			[u"", SRC],
               "c++":		[u"", SRC],
               "cpp":		[u"", SRC],
               "cxx":		[u"", SRC],
-              "hh":			[u"", SRC],
-              "hpp":		[u"", SRC],
+              "hh":			[u"\uf1dc", SRC],
+              "hpp":		[u"\uf1dc", SRC],
               "clj":		[u"", SRC],
               "cljc":		[u"", SRC],
               "cljs":		[u"", SRC],
@@ -167,9 +186,12 @@ EXTENSIONS = {
               "scm":        [u"λ", SRC],
               "scss":		[u"", SRC],
               "sh":			[u"", SRC],
-              "fish":		[u"", SRC],
+              "csh":		[u"", SRC],
               "zsh":		[u"", SRC],
+              "fish":		[u"", SRC],
               "bash":		[u"", SRC],
+              "zsh":		[u"", SRC],
+              "tex":        [u"\uf0db", SRC],
               "slim":		[u"", SRC],
               "sln":		[u"", SRC],
               "sql":		[u"", SRC],
@@ -185,6 +207,7 @@ EXTENSIONS = {
 def colorfmt(c):
     return "\x1b[38;5;%sm" % c
 
+# format the permissions bits as an rwx... string
 def permissions_to_unix_name(st):
     if (stat.S_ISLNK(st.st_mode)):
         permStr = 'l'
@@ -202,24 +225,28 @@ def permissions_to_unix_name(st):
                 permStr += '-'
     return permStr
 
+# check if the file has the user x bit set
 def is_exe(file_stat):
     try:
         return file_stat.st_mode >> 6 & 0x1
     except KeyError:
         return ""
 
+# get the user's name from the uid
 def get_user_name(file_stat):
     try:
         return getpwuid(file_stat.st_uid).pw_name
     except KeyError:
         return ""
 
+#def the group's name from the gid
 def get_group_name(file_stat):
     try:
         return getgrgid(file_stat.st_gid).gr_name
     except KeyError:
         return ""
 
+# format the list of files to fit in compact columns for printing
 def pad_columns(files):
     rows = 0
     totalSize = 0
@@ -241,7 +268,7 @@ def pad_columns(files):
                 # break if there isn't another file
                 if col * rows + row + 1 > len(files):
                     break
-                colWidth = max(colWidth, len(files[col * rows + row][0]) + 1)
+                colWidth = max(colWidth, len(files[col * rows + row][0]) + 2)
             colList.append(colWidth)
             totalSize += colWidth
 
@@ -254,24 +281,90 @@ def pad_columns(files):
         output += "\n"
     return output
 
+# return a human readable file size
 def get_file_size(file_stat):
     size = file_stat.st_size
     if size <= 1024:
-        return "%d B" % size
+        return "%4d B  " % size
     size /= 1024
 
     if size <= 1024:
-        return "%d KiB" % size
+        return "%4d KiB" % size
     size /= 1024
 
     if size <= 1024:
-        return "%d MiB" % size
+        return "%4d MiB" % size
     size /= 1024
 
-    return "%d GiB" % size
+    return "%4d GiB" % size
+
+# get icon and color for a normal file
+def formatFile(f, base):
+    # add emphasis to executables
+    # follow symlinks to find if target is executable
+    if (is_exe(os.stat(f))):
+        file_emphasis = "\x1b[1m"
+    else:
+        file_emphasis = "\x1b[0m"
+
+    # find icon for filetype
+    (name, ext) = path.splitext(base)
+
+    # Lookup specific file name (ex. Makefile)
+    if ext == "" and name in FILENAMES:
+        file_line = ("%s %s" % (FILENAMES[name][0], base))
+        file_color = colorfmt(FILENAMES[name][1])
+
+    # Lookup by file extension (ex. hello.txt)
+    else:
+        file_line, file_color = formatFileByExt(base, ext)
+
+    return file_line, file_color, file_emphasis
+
+# get icon and color for a file, by the file's extension
+def formatFileByExt(name, ext):
+    ext = ext.replace(".", "")
+    # Handle Dotfiles (ex .vimrc)
+    if ext == "" and name[0] == '.':
+        file_line = ("%s %s" % (EXTENSIONS[u":DOTFILE"][0], name))
+        file_color = colorfmt(EXTENSIONS[u":DOTFILE"][1])
+
+    # Handle known extensions (ex hello.txt)
+    elif ext in EXTENSIONS:
+        file_line = ("%s %s" % (EXTENSIONS[ext][0], name))
+        file_color = colorfmt(EXTENSIONS[ext][1])
+
+    # Default formatting for unknown filetypes
+    elif ext not in EXTENSIONS:
+        file_line = ("%s %s" % (EXTENSIONS[u":FILE"][0], name))
+        file_color = colorfmt(EXTENSIONS[u":FILE"][1])
+
+    return file_line, file_color
+
+# get icon and color for a directory
+def formatDir(name):
+    file_line = ("%s %s" % (EXTENSIONS[u":DIRECTORY"][0], name))
+    file_color = colorfmt(EXTENSIONS[u":DIRECTORY"][1])
+
+    return file_line, file_color
+
+
+# format the file in the list format with user, group, permissions etc
+def getListFormat(f, file_line):
+    try:
+        # don't follow symlinks when getting permissions bits
+        file_stat = os.lstat(f)
+        file_line = u"{:<15}{:<10}{:<10}{:<10}{}".format(
+                            permissions_to_unix_name(file_stat),
+                            get_user_name(file_stat),
+                            get_group_name(file_stat),
+                            get_file_size(file_stat), file_line)
+    except OSError:
+        file_line = f
+    return file_line
 
 if __name__ == '__main__':
-    parser = OptionParser()
+    parser = OptionParser(usage="usage: %prog [options] [directory]")
     parser.add_option(
         "-l",
         "--list",
@@ -284,67 +377,46 @@ if __name__ == '__main__':
         action="store_true",
         default=False,
         dest="is_all")
-    parser.add_option("-d", "--dir", dest="dir", default='')
+    #parser.add_option("-d", "--dir", dest="dir", default='')
     (options, args) = parser.parse_args()
 
-    files =  glob.glob(options.dir + '*')
+    if (len(args) == 0):
+        dir = ''
+    else:
+        dir = args[0]
+
+    # get all of the files in the directory
+    files =  glob.glob(dir + '*')
     if (options.is_all):
-        files += glob.glob(options.dir + '.*')
+        files += glob.glob(dir + '.*')
     formattedfiles = []
 
+    # format each file
     for f in sorted(files, key=lambda v: v.upper(),):
-        file_line = ''
-        file_color = ''
-        file_empasis = "\x1b[0m"
+        file_emphasis = "\x1b[0m"
+        base = path.basename(f)
+
+        # format a normal file
         if path.isfile(f):
-            # add emphasis to executables
-            # follow symlinks to find if target is executable
-            if (is_exe(os.stat(f))):
-                file_empasis = "\x1b[1m"
-
-            # find icon for filetype
-            (name, ext) = path.splitext(f)
-            if ext == "" and name in FILENAMES:
-                # Lookup specific file name (ex. Makefile)
-                file_line = ("%s %s" % (FILENAMES[name][0], f))
-                file_color = colorfmt(FILENAMES[name][1])
-            else:
-                ext = ext.replace(".", "")
-                if ext == "" and name[0] == '.':
-                    file_line = ("%s %s" % (EXTENSIONS[u":DOTFILE"][0], f))
-                    file_color = colorfmt(EXTENSIONS[u":DOTFILE"][1])
-                elif ext in EXTENSIONS:
-                    # Lookup file extension
-                    file_line = ("%s %s" % (EXTENSIONS[ext][0], f))
-                    file_color = colorfmt(EXTENSIONS[ext][1])
-                if ext not in EXTENSIONS:
-                    # Default to generic formatting
-                    file_line = ("%s %s" % (EXTENSIONS[u":FILE"][0], f))
-                    file_color = colorfmt(EXTENSIONS[u":FILE"][1])
+            file_line, file_color, file_emphasis = formatFile(f, base)
+        #TODO probably should handle sockets etc...
+        # format as a directory
         else:
-            # format as a directory
-            file_line = ("%s %s" % (EXTENSIONS[u":DIRECTORY"][0], f))
-            file_color = colorfmt(EXTENSIONS[u":DIRECTORY"][1])
+            file_line, file_color = formatDir(base)
 
+        # add link formatting
         if path.islink(f):
             file_line += LINK
             if  options.is_list:
                 file_line += os.readlink(f)
 
+        # add list formatting
         if options.is_list:
-            try:
-                # don't follow symlinks when getting permissions bits
-                file_stat = os.lstat(f)
-                file_line = u"{:<15}{:<10}{:<10}{:<10}{}".format(
-                                    permissions_to_unix_name(file_stat),
-                                    get_user_name(file_stat),
-                                    get_group_name(file_stat),
-                                    get_file_size(file_stat), file_line)
-            except OSError:
-                file_line = f
-        formattedfiles.append((file_line, file_color, file_empasis))
+            file_line = getListFormat(f, file_line)
+        formattedfiles.append((file_line, file_color, file_emphasis))
     fstr = ''
  
+    # handle list printing and column print formatting
     output = ''
     if not options.is_list:
         output = pad_columns(formattedfiles)
@@ -352,6 +424,7 @@ if __name__ == '__main__':
         for f in formattedfiles:
             output += f[0]+"\n"
 
+    # insert formatting characters
     for f in formattedfiles:
         output = output.replace(f[0], f[2]+f[1]+f[0])
 
