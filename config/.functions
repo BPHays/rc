@@ -11,7 +11,7 @@ function ccstr() {
 
   echo "#include<stdio.h>" > $src
   echo $str >> $src
-  clang -std=c99 $src -o $bin && $bin
+  $cc -std=c99 $src -o $bin && $bin
 }
 
 function clangstr() {
