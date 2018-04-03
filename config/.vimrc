@@ -11,7 +11,7 @@
 " # SECMISC MISC                                                              #
 " #############################################################################
 
-" #############################################################################
+" l############################################################################# 
 " # PLUGINS                                                           SECPLUG #
 " #############################################################################
 
@@ -29,7 +29,13 @@ Bundle 'gmarik/vundle'
 Bundle 'ervandew/supertab'
 
 " syntax checking
-"Bundle 'w0rp/ale'
+Bundle 'w0rp/ale'
+  let g:ale_completion_enabled = 0
+  let g:ale_linters = {'cpp': ['clang', 'gcc']}
+  let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra'
+  let g:ale_cpp_gcc_options = '-std=c++17 -Wall -Wextra'
+
+Bundle 'godlygeek/tabular'
 
 Bundle 'let-def/vimbufsync'
 Bundle 'trefis/coquille'
@@ -52,18 +58,19 @@ Bundle 'sirver/ultisnips'
     "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " syntax checking
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 "    let g:syntastic_cpp_compiler = 'clang++'
 "    let g:syntastic_cpp_compiler_options = '-std=c++15'
 
 " pair parens, qoutes, etc
-Plugin 'Rainmondi/delimitMate'
+"Plugin 'Rainmondi/delimitMate'
 
 " change the bottom bar
 Bundle 'bling/vim-airline'
     set laststatus=2
     let g:airline_powerline_fonts=1
-    let g:airline_theme="monokai"
+    " Themes migrated
+    "let g:airline_theme="monokai"
 
 " popout menu with code tags
 Bundle 'majutsushi/tagbar'
@@ -98,6 +105,8 @@ Plugin 'rust-lang/rust.vim'
 call vundle#end()
 filetype plugin indent on
 " vulndle footer boulderplate stop
+"
+set rtp+=~/.vim
 
 " #############################################################################
 " # 1: BASIC EDITOR SETTINGS                                          SEC0001 #
@@ -155,8 +164,8 @@ set visualbell
 " set the default colorscheme
 set t_Co=256
 colors monokai
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-set encoding=utf-8
+"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+"set encoding=utf-8
 
 " #############################################################################
 " # 3: KEYBINDINGS                                                    SEC0003 #
@@ -226,6 +235,16 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 au BufRead,BufNewFile *.def set filetype=c " use c syntax highlighting for gcc def files
 
 " #############################################################################
+" # CPP                                                                       #
+" #############################################################################
+
+" #############################################################################
+" # Rust                                                                      #
+" #############################################################################
+" Set correct compiler for rust
+au BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
+
+" #############################################################################
 " # IMPCORE                                                                   #
 " #############################################################################
 " Use scheme syntax highlighting
@@ -273,3 +292,7 @@ set foldmethod=syntax
 
 " More efficient macros
 set lazyredraw
+
+" Set python support
+"let g:python3_host_prog = 'usr/bin/python3'
+"let g:python_host_prog = 'usr/bin/python2'

@@ -79,24 +79,26 @@ umask 077
 #export VIMRUNTIME=~/.linuxbrew/Cellar/vim/8.0.0562/share/vim/vim80
 
 # import path stuff
-source ~/.paths
+[ -f ~/.paths ] && source ~/.paths
 
 # import user made functions
-source ~/.functions
+[ -f ~/.functions ] && source ~/.functions
 [ -f ~/.local.functions ] && source ~/.local.functions
 
-# use z
-. ~/rc/utilities/z.sh
-
 # import alias file
-source ~/.aliases
+[ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.local.aliases ] && source ~/.local.aliases
 
 # use thefuck
-eval "$(thefuck --alias)"
+if ! [[ $(type thefuck) =~ "not found" ]]; then
+  eval "$(thefuck --alias)"
+fi
 
 DEFAULT_USER="$USER"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+
+# local binaries
+export PATH="$HOME/.local/bin:$PATH"
